@@ -8,7 +8,7 @@ namespace Task.DTOs
         [Required]
         public double Price { get; set; }
         [Required]
-        public string ProductName { get; set; }
+        public string Name { get; set; }
         [Required]
         public string BrandName { get; set; }
     }

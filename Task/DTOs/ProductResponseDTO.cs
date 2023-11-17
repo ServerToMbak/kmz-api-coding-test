@@ -7,9 +7,6 @@ namespace Task.DTOs
         [Required]
         public int QuantityInStock { get; set; }
         public List<ProductDTO>? Products { get; set; }
-        public ProductResponseDTO()
-        {
-            Products = new List<ProductDTO>();
-        }
+    
     }
 }

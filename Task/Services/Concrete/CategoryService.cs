@@ -19,7 +19,7 @@ namespace Task.Services.Concrete
                 return new DataResponse<bool> { Message = "Category Exist", Success = true };
             }
             return new DataResponse<bool>
-            { Message = "Category Does not Exist!", Success = true };
+            { Message = "Category Does not Exist!", Success = false };
         }
     }
 }

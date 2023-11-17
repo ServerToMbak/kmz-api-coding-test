@@ -7,5 +7,6 @@ namespace Task.Services.Abstract
     {
         Task<DataResponse<ProductResponseDTO>> GetProductsByCategory(int categoryId);
         Task<DataResponse<ProductResponseDTO>> GetProductsByCategory(int categoryId, string? ordering);
+        Task<DataResponse<ProductDetailResponseDTO>> GetProductDetail(int productId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Task.DTOs;
 using Task.Services.Abstract;
 
 namespace Task.Controllers
@@ -16,24 +17,35 @@ namespace Task.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetProductsByCategoryId(int id, string? ordering)
+        public async Task<ActionResult> GetProductsByCategoryId(int categoryId, string? ASCORDESC)
         {
-            if(ordering == null)
+            DataResponse<ProductResponseDTO> response;
+            if(ASCORDESC == null)
             {
-                var response = await _productService.GetProductsByCategory(id);
-                if (response.Success)
-                {
-                    return Ok(response);
-                }
-                return BadRequest(response);
+                response = await _productService.GetProductsByCategory(categoryId);
             }
-            var responseOrdered = await _productService.GetProductsByCategory(id,ordering);
-            if (responseOrdered.Success)
+            else
             {
-                return Ok(responseOrdered);
+                response = await _productService.GetProductsByCategory(categoryId, ASCORDESC);
             }
-            return BadRequest(responseOrdered);
+           
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
 
+        }
+
+        [HttpGet("productdetail")]
+        public async Task<ActionResult<ProductDetailResponseDTO>> GetProductDetai(int id)
+        {
+            var response = await _productService.GetProductDetail(id);
+            if(response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Task.Data;
-using Task.Services.Abstract;
-using Task.Services.Concrete;
+using Task.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,14 +10,16 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+// Extension for Service and automapper  
+builder.Services.AddServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+Seed.SeedDataForTest(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
