@@ -16,10 +16,10 @@ namespace Task.Services.Concrete
             var categoryExist = _context.Categories.Any(c=> c.Id == categoryId);
             if(categoryExist)
             {
-                return new DataResponse<bool> { Message = "Category Exist", Success = true };
+                return new DataResponse<bool> {Data=true, Message = "Category Exist", Success = true };
             }
             return new DataResponse<bool>
-            { Message = "Category Does not Exist!", Success = false };
+            { Message = "Category Does not Exist!", Success = false, Data = false };
         }
     }
 }

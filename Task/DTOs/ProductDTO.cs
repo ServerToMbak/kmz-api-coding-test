@@ -11,5 +11,7 @@ namespace Task.DTOs
         public string Name { get; set; }
         [Required]
         public string BrandName { get; set; }
+        [Required]
+        public string Description { get; set; }
     }
 }

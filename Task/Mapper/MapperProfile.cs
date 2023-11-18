@@ -10,15 +10,11 @@ namespace Task.Mapper
         public MapperProfile()
         {
 
-            CreateMap<Product, ProductDTO>()
-                .ForMember( p => p.BrandName, src => src
-                .MapFrom( dest => dest.Envanter.BrandName))
-                .ReverseMap();
-
+            CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<EnvanterItem, EnvanterItemDTO>().ReverseMap();
+            CreateMap<Envanter, EnvanterDTO>().ReverseMap();
             CreateMap<Product, ProductDetailDTO>()
-                .ForMember(p => p.StockQuantity, src => src.MapFrom( dest => dest.Envanter.QuantityInStock))
-                .ForMember(p => p.BrandName, src => src.MapFrom(dest => dest.Envanter.BrandName))
-                .ForMember(p => p.CategoryName, src=> src.MapFrom(dest => dest.Envanter.Category.Name));
+                .ForMember(p=>p.EnvanterItems, src=> src.MapFrom(dest => dest.EnvanterItems));
         }
     }
 }

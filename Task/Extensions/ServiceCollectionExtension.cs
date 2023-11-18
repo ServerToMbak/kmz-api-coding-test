@@ -10,7 +10,7 @@ namespace Task.Extensions
         {
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IEnvanterService, EnvanterService>();
+           
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

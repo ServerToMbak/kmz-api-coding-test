@@ -8,13 +8,8 @@ namespace Task.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
-        [Column("quantity")]
-        public int QuantityInStock { get; set; }
+        public int StockQuantity { get; set; }
         public string SKUCode { get; set; }
-        public Category Category { get; set; }
-        public string? BrandName { get; set; }  
-        [ForeignKey("Categories")]
-        public int CategoryId { get; set; }
+        public ICollection<EnvanterItem> EnvanterItems { get; set; }
     }
 }

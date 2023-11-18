@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Task.Data;
 using Task.DTOs;
+using Task.Entities;
 using Task.Services.Abstract;
 
 namespace Task.Controllers
@@ -9,26 +12,19 @@ namespace Task.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ApplicationDbContext _context;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ApplicationDbContext context)
         {
             _productService = productService;
+            _context = context;
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult> GetProductsByCategoryId(int categoryId, string? ASCORDESC)
+        [HttpGet("2.1")]
+        public async Task<ActionResult> GetProductsByCategoryId(int? categoryId, string? ASCORDESC, string? brandName)
         {
-            DataResponse<ProductResponseDTO> response;
-            if(ASCORDESC == null)
-            {
-                response = await _productService.GetProductsByCategory(categoryId);
-            }
-            else
-            {
-                response = await _productService.GetProductsByCategory(categoryId, ASCORDESC);
-            }
-           
+            var response = await _productService.GetProductsByCategory(categoryId, brandName, ASCORDESC);
             if (response.Success)
             {
                 return Ok(response);
@@ -37,7 +33,7 @@ namespace Task.Controllers
 
         }
 
-        [HttpGet("productdetail")]
+        [HttpGet("2.2")]
         public async Task<ActionResult<ProductDetailResponseDTO>> GetProductDetai(int id)
         {
             var response = await _productService.GetProductDetail(id);

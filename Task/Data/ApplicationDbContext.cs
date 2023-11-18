@@ -12,5 +12,6 @@ namespace Task.Data
         public DbSet<Envanter> Envanters { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<EnvanterItem> EnvanterItems { get; set; }
     }
 }

@@ -5,8 +5,8 @@ namespace Task.Services.Abstract
 {
     public interface IProductService
     {
-        Task<DataResponse<ProductResponseDTO>> GetProductsByCategory(int categoryId);
-        Task<DataResponse<ProductResponseDTO>> GetProductsByCategory(int categoryId, string? ordering);
+        Task<DataResponse<ProductResponseDTO>> GetProductsByCategory(int? categoryId, string? brand, string? orderBy);
         Task<DataResponse<ProductDetailResponseDTO>> GetProductDetail(int productId);
+        DataResponse<List<Product>> GetAllProducts();
     }
 }

@@ -11,8 +11,8 @@ using Task.Data;
 namespace Task.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231116175315_Initialize2")]
-    partial class Initialize2
+    [Migration("20231117215032_mig_2")]
+    partial class mig_2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace Task.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EnvanterItemProduct", b =>
+                {
+                    b.Property<int>("EnvanterItemsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("productsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnvanterItemsId", "productsId");
+
+                    b.HasIndex("productsId");
+
+                    b.ToTable("EnvanterItemProduct");
+                });
 
             modelBuilder.Entity("Task.Entities.Category", b =>
                 {
@@ -48,29 +63,44 @@ namespace Task.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BrandName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QuantityInStock")
-                        .HasColumnType("int")
-                        .HasColumnName("quantity");
 
                     b.Property<string>("SKUCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Envanters");
+                });
+
+            modelBuilder.Entity("Task.Entities.EnvanterItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EnvanterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Parcel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnvanterId");
+
+                    b.ToTable("EnvanterItems");
                 });
 
             modelBuilder.Entity("Task.Entities.Product", b =>
@@ -81,44 +111,45 @@ namespace Task.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("BrandName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnvanterId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Parcel")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EnvanterId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Task.Entities.Envanter", b =>
+            modelBuilder.Entity("EnvanterItemProduct", b =>
                 {
-                    b.HasOne("Task.Entities.Category", "Category")
-                        .WithMany("Envanters")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("Task.Entities.EnvanterItem", null)
+                        .WithMany()
+                        .HasForeignKey("EnvanterItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.HasOne("Task.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("productsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Task.Entities.Product", b =>
+            modelBuilder.Entity("Task.Entities.EnvanterItem", b =>
                 {
                     b.HasOne("Task.Entities.Envanter", "Envanter")
                         .WithMany()
@@ -129,9 +160,20 @@ namespace Task.Migrations
                     b.Navigation("Envanter");
                 });
 
+            modelBuilder.Entity("Task.Entities.Product", b =>
+                {
+                    b.HasOne("Task.Entities.Category", "Category")
+                        .WithMany("products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Task.Entities.Category", b =>
                 {
-                    b.Navigation("Envanters");
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

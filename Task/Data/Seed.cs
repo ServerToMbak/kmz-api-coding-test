@@ -21,7 +21,7 @@ namespace Task.Data
                         },
                         new Category()
                         {
-                            Name = "Test3",
+                            Name = "Test2",
                         },
 
                     });
@@ -34,113 +34,139 @@ namespace Task.Data
                     {
                         new Envanter()
                         {
-                            BrandName = "BrandTest",
-                            CategoryId = 1,
-                            Name= "Envanter item 1",
-                            QuantityInStock = 300,
-                            SKUCode = "ENVTRITEM1",
-                           
+                            Name = "TENİS RAKETi",
+                            SKUCode="RKT",
+                            StockQuantity=110
+
                         },
                         new Envanter()
                         {
-                            BrandName = "BrandTest",
-                            CategoryId = 2,
-                            Name= "Envanter item 2",
-                            QuantityInStock = 45000,
-                            SKUCode = "ENVTRITEM2",
+                            Name = "TENİS TOPU",
+                            SKUCode="RKT",
+                            StockQuantity=300
+
                         },
+                        new Envanter()
+                        {
+                            Name = "TEST1 ",
+                            SKUCode="TEST1",
+                            StockQuantity=120
+
+                        },
+                         new Envanter()
+                         {
+                            Name = "TEST2 ",
+                            SKUCode="TEST2",
+                            StockQuantity=100
+                         },
+                         new Envanter()
+                         {
+                            Name = "TEST3 ",
+                            SKUCode="TEST3",
+                            StockQuantity=100
+                         },
 
                     });
                     context.SaveChanges();
                 }
+
                 if (!context.Products.Any())
                 {
                     context.Products.AddRange(new List<Product>()
                     {
-                        // Envanter 1 fake products:
+                        
                         new Product()
                         {
-                            EnvanterId = 1,
-                            Description = "Envanter 1 test ürün 1",
-                            Name = "ENVANTER1 12'li test ürünü1",
-                            Parcel =12,
-                            Quantity = 1,
-                            Price= 120
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =1,Parcel=1, Quantity=50},
+                                new EnvanterItem() { EnvanterId =2,Parcel=1, Quantity=5 },
+                            },
+                            BrandName = "Marka Test",
+                            CategoryId=1,
+                            Description = "Category 1 için test ürünü; tenis raketi ve topu",
+                            Name = "Test prouct1 itemler; raket ve top",
+                            Price = 520,
+                            
+                        },
+                        new Product()
+                        {
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =1,Parcel=3, Quantity=50},
+                                new EnvanterItem() { EnvanterId =2,Parcel=1, Quantity=5 },
+                            },
+                            BrandName = "Marka Test1",
+                            CategoryId=1,
+                            Description = "Category 1 için test ürünü; tenis raketi ve topu",
+                            Name = "Test prouct2 itemler; raket ve top",
+                            Price = 600,
 
                         },
                         new Product()
                         {
-                            EnvanterId = 1,
-                            Description = "Envanter 1 test ürün 3",
-                            Name = "ENVANTER1 6'li test ürünü2",
-                            Parcel =6,
-                            Quantity = 1,
-                            Price= 80
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =3,Parcel=2, Quantity=6},
+                                new EnvanterItem() { EnvanterId =2,Parcel=1, Quantity=10 },
+                            },
+                            BrandName = "Marka Test2",
+                            CategoryId=2,
+                            Description = "Category 2 için test ürünleri",
+                            Name = "Test prouct3 itemler; raket ve top",
+                            Price = 405,
+
                         },
                         new Product()
                         {
-                            EnvanterId = 1,
-                            Description = "Envanter 1 test ürün 2",
-                            Name = "ENVANTER1 12'li 2 paket test ürünü3",
-                            Parcel =12,
-                            Quantity = 2,
-                            Price= 200
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =3,Parcel=2, Quantity=6},
+                                new EnvanterItem() { EnvanterId =5,Parcel=10, Quantity=3 },
+                            },
+                            BrandName = "Marka Test1",
+                            CategoryId=2,
+                            Description = "Category 2 için test ürünleri",
+                            Name = "Test prouct3 itemler; raket ve top",
+                            Price = 425,
+
                         },
-                        new Product()
+                       new Product()
                         {
-                            EnvanterId = 1,
-                            Description = "Envanter 1 test ürün 3",
-                            Name = "ENVANTER1 8'li test ürünü 4",
-                            Parcel =8,
-                            Quantity = 1,
-                            Price= 100
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =1,Parcel=1, Quantity=50},
+                                new EnvanterItem() { EnvanterId =2,Parcel=1, Quantity=5 },
+                            },
+                            BrandName = "Marka Test",
+                            CategoryId=1,
+                            Description = "Category 1 için test ürünleri",
+                            Name = "Test prouct1 itemler; raket ve top",
+                            Price = 300,
+
                         },
                         // Envanter 2 fake products:
                         new Product()
                         {
-                            EnvanterId = 2,
-                            Description = "Envanter 2 test ürün 1",
-                            Name = "ENVANTER2 12'li test ürünü 1",
-                            Parcel =12,
-                            Quantity = 1,
-                            Price= 130
+                            EnvanterItems= new List<EnvanterItem>()
+                            {
+                                new EnvanterItem() { EnvanterId =1,Parcel=1, Quantity=50},
+                                new EnvanterItem() { EnvanterId =2,Parcel=1, Quantity=5 },
+                            },
+                            BrandName = "Marka Test",
+                            CategoryId=1,
+                            Description = "Category 1 için test ürünü",
+                            Name = "Test prouct1 itemler; raket ve top",
+                            Price = 350,
 
                         },
-                        new Product()
-                        {
-                            EnvanterId = 2,
-                            Description = "Envanter 2 test ürün 3",
-                            Name = "ENVANTER2 12'li test ürünü 2",
-                            Parcel =6,
-                            Quantity = 1,
-                            Price= 68
-                        },
-                        new Product()
-                        {
-                            EnvanterId = 2,
-                            Description = "Envanter 2 test ürün 2",
-                            Name = "ENVANTER2  5'li 2 paket toplam 10 adet test ürünü3",
-                            Parcel =5,
-                            Quantity = 2,
-                            Price= 85
-                        },
-                        new Product()
-                        {
-                            EnvanterId = 2,
-                            Description = "Envanter 2 test ürün 3",
-                            Name = "ENVANTER2 6'li 3 paket test ürünü 4",
-                            Parcel =6,
-                            Quantity = 3,
-                            Price= 155
-                        }
-
                     });
                     context.SaveChanges();
                 }
 
-            }  
+            }
         }
-           
+
 
     }
 }
